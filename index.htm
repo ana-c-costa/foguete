@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>foguetinho</title>
+
+    <style>
+        body
+        {
+            width: 100%;
+            height: 100vh;
+            background-image: linear-gradient(0deg, lightblue, darkblue);
+            overflow: hidden;
+        }
+        .fogueto
+        {
+            position: absolute;
+            top: 650px;
+            left: 680px;
+            z-index: 2;/*tras a imagem para frente*/
+        }
+        .lua
+        {
+            position: absolute;
+            top: 25px;
+            left: 30px;
+        }
+        .saturno
+        {
+            position: absolute;
+            top: 90px;
+            left: 950px;
+        }
+        .terra
+        {
+            position: absolute;
+            top: 230px;
+            left: 480px;
+        }
+        .marte
+        {
+            position: absolute;
+            top: 520px;
+            left: 1230px;
+        }
+    </style>
+</head>
+<body>
+    <img id="foguete" src="foguete.gif" onclick="comecar()" id ="foguete" width="110px" class="fogueto">
+    
+    <audio id="audio" autoplay="">
+        <source src="contagem_regressiva.mp3" type="audio/mp3">
+    </audio>
+        <audio id="audio2" autoplay="">
+        <source src="lancamento_foguete.mp3" type="audio/mp3">
+    </audio>
+    </audio>
+        <audio id="audio3" autoplay="">
+        <source src="problem.mp3" type="audio/mp3">
+    </audio>
+
+    <img src="lua.png" width="280px" class="lua">
+    <img src="saturno.png" width="200px" class="saturno">
+    <img src="Terra.png" width="180px" class="terra">
+    <img src="marte.png" width="180px" class="marte">
+</body>
+    <script src="jquery-3.7.0.min.js"></script>
+
+    <script>
+
+        function comecar()
+        {
+            temporizador = setTimeout(subir, 20000)
+            contagem = document.getElementById('audio');
+            contagem.play();
+
+            temporizador2 = setTimeout(tocar2, 20000)
+            temporizador3 = setTimeout(tocar3, 38000)
+        }
+        function tocar2()
+        {
+            contagem = document.getElementById('audio2');
+            contagem.play();
+        }
+        function tocar3()
+        {
+            contagem = document.getElementById('audio3');
+            contagem.play();
+        }
+        d= new Date();
+        tempo_inicial =  d.getTime();
+        x=800
+        y=100
+        ESQUERDA = ""
+        TOPO = ""
+
+        function subir()
+        {
+            TOPO = y + "px"
+            $("#foguete").animate({top:TOPO},18000)
+
+            temporizador= null
+            temporizador= setInterval(descer,1000)
+        }
+        function descer()
+            {
+                y= y + 20
+                if (y>600)
+                {
+                    y=600
+                }
+                TOPO = y + "px"
+                $("#foguete").animate({top:TOPO},1000)
+
+            }
+document.onkeydown = Pega_Tecla;
+function Pega_Tecla(e) 
+{	
+    e = e || window.event;
+    tecla = e.keyCode;
+    console.log(tecla); // MOSTRA O CÓDIGO DA TECLA PRESSIONADA
+
+    d2= new Date();
+    tempo_final =  d2.getTime();
+
+    if(tempo_final-tempo_inicial>1000)
+    {
+            tempo_inicial= tempo_final
+
+
+            if(tecla == 37)
+        {
+            $("#foguete").stop()
+            x = x - 20
+            ESQUERDA = x + "px"
+            descer()
+        }
+
+        if(tecla == 39)
+            {
+            $("#foguete").stop()
+            x = x + 20
+            ESQUERDA = x + "px"
+            descer()
+            }
+    }
+}
+</script>
+</html>
